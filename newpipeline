@@ -14,7 +14,7 @@ pipeline {
                 }
             }
         }
-stages {
+
         stage('deploy') {
             steps {
                 node("deploy_server") {
