@@ -1,14 +1,18 @@
-  stages {
+
+pipeline {
+    agent any
+
+    stages {
         stage('code build') {
             steps {
                 node("build_server") {
-                print ("clone repo")
-                checkout scm
-                print ("building the war file")
-                sh "mvn install"
+                    echo "Clone repo"
+                    checkout scm
+                    echo "Building the war file"
+                    sh "mvn install"
                 }
             }
         }
-
-
     }
+}
+
