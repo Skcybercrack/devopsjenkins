@@ -11,6 +11,7 @@ pipeline {
                     echo "Building the war file"
                     sh "mvn install"
                     stash includes: '/app/build/workspace/newproject/target/1094.war', name: 'warfile'
+                    echo "war file stash"
                 }
             }
         }
