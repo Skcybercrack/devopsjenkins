@@ -10,6 +10,19 @@ pipeline {
                     checkout scm
                     echo "Building the war file"
                     sh "mvn install"
+                    stash includes: '/app/build/workspace/newproject/target/1094.war', name: 'warfile'
+                }
+            }
+        }
+stages {
+        stage('deploy') {
+            steps {
+                node("deploy_server") {
+                     unstash 'warfile'
+                    echo "delete old package"
+                     sh "rm -rf /usr/local/tomcat/webapps/2094.war"
+                    echo "copy new file"
+                    sh "cp warfile /usr/local/tomcat/webapps/ "
                 }
             }
         }
