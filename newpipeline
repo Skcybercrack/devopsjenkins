@@ -23,7 +23,7 @@ pipeline {
                     echo "delete old package"
                      sh "rm -rf /usr/local/tomcat/webapps/2094.war"
                     echo "copy new file"
-                    sh "cp warfile /usr/local/tomcat/webapps/ "
+                    sh "cp /app/deploy/workspace/newproject/target/2094.war /usr/local/tomcat/webapps/ "
                 }
             }
         }
