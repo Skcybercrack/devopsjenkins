@@ -54,7 +54,7 @@ pipeline {
                     echo "Delete old package"
                    sh "rm -rf /usr/local/tomcat/webapps/1094.war"
                     echo "Copy new file"
-                    sh "cp warfile/*.war /usr/local/tomcat/webapps/1094.war"
+                    sh "cp warfile /usr/local/tomcat/webapps/1094.war"
                 }
             }
         }
