@@ -1,7 +1,7 @@
   stages {
         stage('code build') {
             steps {
-                node("build_server) {
+                node("build_server") {
                 print ("clone repo")
                 checkout scm
                 print ("building the war file")
