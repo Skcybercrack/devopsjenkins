@@ -1,4 +1,4 @@
-
+/*
 pipeline {
     agent any
 
@@ -24,6 +24,37 @@ pipeline {
                      sh "rm -rf /usr/local/tomcat/webapps/2094.war"
                     echo "copy new file"
                     sh "cp warfile /usr/local/tomcat/webapps/ "
+                }
+            }
+        }
+    }
+}
+*/
+pipeline {
+    agent any
+
+    stages {
+        stage('code build') {
+            steps {
+                node("build_server") {
+                    echo "Clone repo"
+                    checkout scm
+                    echo "Building the war file"
+                    sh "mvn install"
+                    stash includes: 'target/*.war', name: 'warfile'
+                    echo "War file stashed"
+                }
+            }
+        }
+
+        stage('deploy') {
+            steps {
+                node("deploy_server") {
+                    unstash 'warfile'
+                    echo "Delete old package"
+                    sh "rm -rf /usr/local/tomcat/webapps/1094.war"
+                    echo "Copy new file"
+                    sh "cp warfile/*.war /usr/local/tomcat/webapps/1094.war"
                 }
             }
         }
